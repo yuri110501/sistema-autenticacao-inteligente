@@ -1,17 +1,23 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional, Union
-import torch
-from agent import AuthenticationSystem
+
+from src.auth_system.auth_system import AuthenticationSystem
 
 app = FastAPI(title="Sistema de Autenticação Inteligente")
 system = AuthenticationSystem()
 
 class AuthRequest(BaseModel):
+    """
+    Modelo de dados para requisição de autenticação
+    """
     auth_type: str
     data: Union[List[float], str]
 
 class AuthResponse(BaseModel):
+    """
+    Modelo de dados para resposta de autenticação
+    """
     user_id: Optional[str]
     sector: Optional[str]
     is_valid: bool
@@ -19,6 +25,9 @@ class AuthResponse(BaseModel):
 
 @app.post("/authenticate", response_model=AuthResponse)
 async def authenticate(request: AuthRequest):
+    """
+    Endpoint para autenticação de usuários
+    """
     try:
         user_id = system.find_user(request.data)
         if not user_id:
@@ -48,8 +57,14 @@ async def authenticate(request: AuthRequest):
 
 @app.get("/sectors")
 async def get_sectors():
+    """
+    Retorna os setores disponíveis e seus métodos de autenticação
+    """
     return system.sectors
 
-if __name__ == "__main__":
+def start_server(host="0.0.0.0", port=8000):
+    """
+    Inicia o servidor FastAPI
+    """
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000) 
+    uvicorn.run(app, host=host, port=port) 

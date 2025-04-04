@@ -15,6 +15,30 @@ Sistema de autenticação baseado em IA que utiliza diferentes métodos de auten
 - Interface web para testes
 - API REST para integração
 
+## Estrutura do Projeto
+
+```
+.
+├── docs/                  # Documentação
+├── src/                   # Código fonte
+│   ├── api/               # API e interface web
+│   │   ├── fastapi_app.py # API FastAPI
+│   │   └── streamlit_app.py # Interface Streamlit
+│   ├── auth_system/       # Sistema de autenticação
+│   │   └── auth_system.py # Classe principal
+│   ├── models/            # Modelos de ML
+│   │   └── network.py     # Rede neural para autenticação
+│   └── utils/             # Utilitários
+│       └── aco.py         # Algoritmo de colônia de formigas
+├── tests/                 # Testes
+├── .gitignore             # Padrões para ignorar no Git
+├── README.md              # Documentação principal
+├── requirements.txt       # Dependências do projeto
+├── run_api.py             # Script para executar a API
+├── run_app.py             # Script para executar a interface web
+└── setup.py               # Configuração de instalação
+```
+
 ## Requisitos
 
 - Python 3.8+
@@ -23,29 +47,32 @@ Sistema de autenticação baseado em IA que utiliza diferentes métodos de auten
 ## Instalação
 
 1. Clone o repositório
+```bash
+git clone https://github.com/yuri110501/sistema-autenticacao-inteligente.git
+cd sistema-autenticacao-inteligente
+```
+
 2. Instale as dependências:
 ```bash
 pip install -r requirements.txt
+```
+
+3. (Opcional) Instale o pacote em modo desenvolvimento:
+```bash
+pip install -e .
 ```
 
 ## Execução
 
 1. Inicie a API:
 ```bash
-python api.py
+python run_api.py
 ```
 
 2. Em outro terminal, inicie a interface web:
 ```bash
-streamlit run app.py
+python run_app.py
 ```
-
-## Estrutura do Projeto
-
-- `agent.py`: Implementação do agente de autenticação
-- `api.py`: API FastAPI
-- `app.py`: Interface Streamlit
-- `requirements.txt`: Dependências do projeto
 
 ## Exemplos de Uso
 
